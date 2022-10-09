@@ -11,7 +11,32 @@ con = sqlite3.connect("bd")
 cur = con.cursor()
 
 
+def analytics(func: callable):
+    total_messages = 0
+    users =set()
+    total_users = 0
+
+    def analytics_wrapper(message):
+            nonlocal total_messages, total_users
+            total_messages +=1
+
+            if message.chat.id not in users:
+                users.add(message.chat.id)
+                total_users += 1
+            data = [
+                (
+                    total_users, message.text, total_messages
+                 )
+            ]
+            cur.executemany("INSERT INTO analytics VALUES(?, ?, ?)", data)
+            con.commit()
+            return func(message)
+
+    return analytics_wrapper
+
+
 @dp.message_handler(commands=['start'])
+@analytics
 async def hello(message: aiogram.types.Message):
     await message.answer("Вітаю, майбутній вступнику КНУТД❗️🧑‍🎓\n"
                          "Вступ на 1 курс завжди тривожний📚\n"
@@ -22,6 +47,7 @@ async def hello(message: aiogram.types.Message):
 
 
 @dp.message_handler(content_types=['text'])
+@analytics
 async def answer_to_the_question(message: aiogram.types.Message):
     if message.text == 'Найчастіші запитання':
         await message.answer('Ось перелік найчастіших запитань...', reply_markup=keybord.mfaq)
