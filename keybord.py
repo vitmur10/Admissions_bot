@@ -28,15 +28,14 @@ the_cost_of_the_military_department = aiogram.types.InlineKeyboardButton(text='�
 finansy = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(what_is_the_tuition_fee).row(the_cost_of_the_hostel).row(the_cost_of_the_military_department).row(pay_for_tuition)
 
 # Питання щодо навчання
+faculty_dormitory = aiogram.types.InlineKeyboardButton(text='Гуртожиток факультету', callback_data='faculty_dormitory')
 terms_of_study = aiogram.types.InlineKeyboardButton(text='Терміни навчання', callback_data='terms_of_study')
 learning_offline_online = aiogram.types.InlineKeyboardButton(text='Навчання Офлайн/Онлайн?', callback_data='learning_offline_online', url='https://knutd.edu.ua/ekts/grafik/ ')
 study_abroad_is_possible = aiogram.types.InlineKeyboardButton(text='Чи можливе навчання знаходячись закордоном?', callback_data='abroad_is_possible', url='https://drive.google.com/file/d/1kuo79jOR_TOavUXQV0c_oVnP6T_ePRvi/view ')
 specialty = aiogram.types.InlineKeyboardButton(text='Які спеціальності пропонує університет?', url='https://knutd.edu.ua/admissions_main/perelik-osvitnikh-program-shho-proponuye-universitet/')
 specialty_FMKT = aiogram.types.InlineKeyboardButton(text='Освітні програми ФМКТ', callback_data='Specialty_FMKT')
-regarding_training = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(specialty).row(specialty_FMKT).row(study_abroad_is_possible).row(learning_offline_online).row(terms_of_study)
-faculty_dormitory = aiogram.types.InlineKeyboardButton(text='Гуртожиток факультету', callback_data='faculty_dormitory')
-renewal = aiogram.types.InlineKeyboardButton(text='Поновлення', callback_data='renewal')
-deduction = aiogram.types.InlineKeyboardButton(text= 'Відрахування', callback_data='deduction')
+regarding_training = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(specialty).row(specialty_FMKT).row(study_abroad_is_possible).row(learning_offline_online).row(terms_of_study).row(faculty_dormitory)
+
 email = aiogram.types.InlineKeyboardButton(text='Електронна адреса ', callback_data='email')
 timee = aiogram.types.InlineKeyboardButton(text='Час роботи ', callback_data='time')
 location = aiogram.types.InlineKeyboardButton(text='Де знаходиться? ', callback_data='location')
@@ -51,7 +50,9 @@ application_deadlines = aiogram.types.InlineKeyboardButton(text='Терміни 
 parents_must_be_present = aiogram.types.InlineKeyboardButton(text='Чи повині батьки бути присутніми приподачі документів на контракт/бюджет?', callback_data='parents_must_be_present')
 dormitory_documents = aiogram.types.InlineKeyboardButton(text='Які документи потрібні для заселення в гуртожиток?', callback_data='dormitory_documents', url='https://knutd.edu.ua/files/students/polozh-pro-koryst-gurt.pdf ')
 documents = aiogram.types.InlineKeyboardButton(text='Які потрібні документи для вступу?', callback_data='documents')
-admissions = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(parents_must_be_present).row(documents).row(dormitory_documents).row(application_deadlines).row(faculty_dormitory).row(
+renewal = aiogram.types.InlineKeyboardButton(text='Поновлення', callback_data='renewal')
+deduction = aiogram.types.InlineKeyboardButton(text= 'Відрахування', callback_data='deduction')
+admissions = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(parents_must_be_present).row(documents).row(dormitory_documents).row(application_deadlines).row(
     renewal).row(deduction).row(email).row(timee).row(location).row(academic_certificate).row(student_id).row(where_are_the_documents).row(
     wahtoac).row(wFMKTdo)
 
