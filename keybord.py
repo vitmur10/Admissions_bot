@@ -53,7 +53,7 @@ dormitory_documents = aiogram.types.InlineKeyboardButton(text='Які докум
 documents = aiogram.types.InlineKeyboardButton(text='Які потрібні документи для вступу?', callback_data='documents')
 admissions = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(parents_must_be_present).row(documents).row(dormitory_documents).row(application_deadlines).row(faculty_dormitory).row(
     renewal).row(deduction).row(email).row(timee).row(location).row(academic_certificate).row(student_id).row(where_are_the_documents).row(
-    wahtoac).row(wahtoac).row(wFMKTdo)
+    wahtoac).row(wFMKTdo)
 
 
 mfaq = aiogram.types.InlineKeyboardMarkup(resize_keyboard=True).add(application_deadlines).row(documents).row(dormitory_documents).row(terms_of_study).add(specialty).row(specialty_FMKT).row(what_is_the_tuition_fee).row(the_cost_of_the_hostel)
