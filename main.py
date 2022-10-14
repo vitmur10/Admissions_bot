@@ -10,7 +10,7 @@ dp = aiogram.Dispatcher(bot)
 con = sqlite3.connect("bd")
 cur = con.cursor()
 
-
+q = ('*'*30)
 def analytics(func: callable):
     total_messages = 0
     users =set()
@@ -64,6 +64,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'За якими спеціальностями відбувається набір?'"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -72,6 +73,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Вартість проживання у гуртожитку 2022/2023 н.р. '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -80,6 +82,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Які потрібні документи для вступу? '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -88,6 +91,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Умови вступу '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -96,6 +100,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Терміни навчання '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -104,6 +109,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply FROM reply WHERE question = 'Вартість навчання (денна/заочна) '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -112,6 +118,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Гуртожиток факультету '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -120,6 +127,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Поновлення'"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -128,6 +136,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Відрахування '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -136,6 +145,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Електронна адреса '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -144,6 +154,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Час роботи '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -153,6 +164,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходиться? '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -161,6 +173,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Академічна довідка '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -170,6 +183,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Студентський квиток '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -179,6 +193,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходяться оригінали документів, на підставі яких Ви вступали до університету? '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -187,6 +202,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де замовити довідку у територіальні центри комплектування та соціальної підтримки (ТЦК та СП, військкомат), форма 20 '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -195,6 +211,7 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де і як замовити довідку? '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
 
 
@@ -203,7 +220,17 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходиться деканат Факультету МКТ? '"):
         await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
                                                             f"{reply[0]}")
+
+
+@dp.callback_query_handler(lambda c: c.data == 'parents_must_be_present')
+async def independence_square(callback_query: aiogram.types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходиться деканат Факультету МКТ? '"):
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{q}\n"
+                                                            f"Якщо вступнику немає 18 так")
 
 if __name__ == '__main__':
     aiogram.executor.start_polling(dp, skip_updates=True)
