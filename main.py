@@ -63,77 +63,88 @@ async def answer_to_the_question(message: aiogram.types.Message):
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'За якими спеціальностями відбувається набір?'"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'the_cost_of_the_hostel')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Вартість проживання у гуртожитку 2022/2023 н.р. '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'documents')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Які потрібні документи для вступу? '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'documents')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Умови вступу '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'terms_of_study')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Терміни навчання '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'tuition_fee')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
-    for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Вартість навчання (денна/заочна) '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+    for reply in cur.execute("SELECT reply FROM reply WHERE question = 'Вартість навчання (денна/заочна) '"):
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'faculty_dormitory')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Гуртожиток факультету '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'renewal')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Поновлення'"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'deduction')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Відрахування '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'email')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Електронна адреса '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'time')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Час роботи '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 
@@ -141,14 +152,16 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходиться? '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'academic_certificate')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Академічна довідка '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 
@@ -156,7 +169,8 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Студентський квиток '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 
@@ -164,28 +178,32 @@ async def independence_square(callback_query: aiogram.types.CallbackQuery):
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходяться оригінали документів, на підставі яких Ви вступали до університету? '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'wocftc')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де замовити довідку у територіальні центри комплектування та соціальної підтримки (ТЦК та СП, військкомат), форма 20 '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'wahtoac')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де і як замовити довідку? '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 
 @dp.callback_query_handler(lambda c: c.data == 'wFMKTdo')
 async def independence_square(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     for reply in cur.execute("SELECT reply  FROM reply WHERE question = 'Де знаходиться деканат Факультету МКТ? '"):
-        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо{reply}")
+        await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
+                                                            f"{reply}")
 
 if __name__ == '__main__':
     aiogram.executor.start_polling(dp, skip_updates=True)
