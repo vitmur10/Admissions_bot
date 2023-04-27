@@ -25,4 +25,4 @@ RUN python Introfon/manage.py migrate
 EXPOSE 8000
 
 # Вказуємо команду для запуску додатку
-CMD ["bash", "-c","python main.py & python Introfon/manage.py runserver"]
+CMD ["bash", "-c","python main.py & python Introfon/manage.py runserver 0.0.0.0:8000"]

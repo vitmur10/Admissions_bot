@@ -24,19 +24,16 @@ async def newquestion(message: aiogram.types.Message, state: FSMContext):
         who = "@" + message.chat.username
     if message.content_type == 'photo':
         ph = message.photo[0].file_id
-        await message.reply(f"{cfg['question_ur_question_sended_message']}",
-                            parse_mode='Markdown')
+        await message.reply(f"{cfg['question_ur_question_sended_message']}")
         await bot.send_photo(cfg['teh_chat_id'], ph,
                              caption=f"✉ | Нове запитання\nВід: {who}\nПитання: {data['text']}\n\n📝 Щоб відповісти "
-                                     f"на запитання, введіть /відповідь {message.chat.id} Ваша відповідь",
-                             parse_mode='Markdown')
+                                     f"на запитання, введіть ")
+        await bot.send_message(cfg['teh_chat_id'], f"/відповідь {message.chat.id} Ваша відповідь")
     else:
-        await message.reply(f"{cfg['question_ur_question_sended_message']}",
-                            parse_mode='Markdown')
+        await message.reply(f"{cfg['question_ur_question_sended_message']}")
         await bot.send_message(cfg['teh_chat_id'],
-                               f"✉ | Нове запитання\nВід: {who}\nПитання: {data['text']}\n\n📝 Щоб відповісти "
-                               f"на запитання, введіть /відповідь {message.chat.id} Ваша відповідь",
-                               parse_mode='Markdown')
+                               f"✉ | Нове запитання\nВід: {who}\nПитання: {data['text']}\n\n📝 Щоб відповісти ")
+        await bot.send_message(cfg['teh_chat_id'],f"/відповідь {message.chat.id} Ваша відповідь")
 
 
 @dp.message_handler(commands=['start'])
@@ -48,14 +45,11 @@ async def hello(message: aiogram.types.Message):
 @dp.message_handler(commands=['getchatid'])
 async def client_getgroupid(message: aiogram.types.Message):
     try:
-        await message.answer(f"Chat id is: *{message.chat.id}*\nYour id is: *{message.from_user.id}*",
-                             parse_mode='Markdown')
+        await message.answer(f"Chat id is: *{message.chat.id}*\nYour id is: *{message.from_user.id}*")
     except Exception as e:
         cid = message.chat.id
-        await message.answer(f"{cfg['error_message']}",
-                             parse_mode='Markdown')
-        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}",
-                               parse_mode='Markdown')
+        await message.answer(f"{cfg['error_message']}")
+        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}")
 
 
 @dp.message_handler(commands=['відповідь'])
@@ -69,19 +63,16 @@ async def admin_ot(message: aiogram.types.Message):
             for ot in args:
                 answer += ot + " "
             await message.reply('✅ Ви успішно відповіли на запитання!')
-            await bot.send_message(chatid, f"✉ Нове повідомлення!\nВідповідь від технічної підтримки:\n\n{answer}",
-                                   parse_mode='Markdown')
+            await bot.send_message(chatid, f"✉ Нове повідомлення!\nВідповідь від технічної підтримки:\n\n{answer}")
             return
         else:
-            await message.reply('⚠ Вкажіть аргументи команди\nПриклад: /відповідь 516712732 Ваша відповідь',
-                                parse_mode='Markdown')
+            await message.reply('⚠ Вкажіть аргументи команди\nПриклад:')
+            await bot.send_message(cfg['teh_chat_id'], f"/відповідь {message.chat.id} Ваша відповідь")
             return
     except Exception as e:
         cid = message.chat.id
-        await message.answer(f"{cfg['error_message']}",
-                             parse_mode='Markdown')
-        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}",
-                               parse_mode='Markdown')
+        await message.answer(f"{cfg['error_message']}")
+        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}")
 
 
 @dp.message_handler(content_types=['text'])
@@ -92,10 +83,8 @@ async def answer_to_the_question(message: aiogram.types.Message):
             await FSMQuestion.text.set()
     except Exception as e:
         cid = message.chat.id
-        await message.answer(f"{cfg['error_message']}",
-                             parse_mode='Markdown')
-        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}",
-                               parse_mode='Markdown')
+        await message.answer(f"{cfg['error_message']}")
+        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}")
     if message.text == 'Найчастіші запитання':
         await message.answer('Ось перелік найчастіших запитань...', reply_markup=keybord.create_inline_keyboard(message.text))
     elif message.text == 'Фінанси':
