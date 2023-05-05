@@ -11,7 +11,6 @@ RUN pip install\
     Django \
     python-dotenv\
     aiogram\
-    django-grappelli \
     asyncio
 
 # Копіюємо код у контейнер

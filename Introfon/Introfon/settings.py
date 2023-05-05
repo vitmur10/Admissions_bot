@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'pkbot.knutd.edu.ua']
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'Introfon.urls'
 
