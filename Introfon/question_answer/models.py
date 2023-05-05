@@ -12,6 +12,10 @@ class Faculty(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Факультет'
+        verbose_name_plural = 'Факультети'
+
 
 class Question(models.Model):
     TYPE_CHOICES = (
@@ -27,3 +31,7 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
+
+    class Meta:
+        verbose_name = 'Питання'
+        verbose_name_plural = 'Питання'
