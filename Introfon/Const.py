@@ -3,7 +3,7 @@ import sqlite3
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 cfg = {
-    'token': '5655953761:AAFh_fE1i1iVW2i1_9ksoXlXrT-AFPn3epQ',
+    'token': '6075826339:AAF-yGH627OMzQcZAQuQes0PC3K3dB3PUd4',
     'teh_chat_id': -919047324,
     'db_name': 'Introfon/db.sqlite3',
 
@@ -19,15 +19,11 @@ cfg = {
     'ban_message': '⚠ Ви заблоковані в боті!',
     'question_type_ur_question_message': '📝 Введіть своє запитання (можна додати фото):',
     'question_ur_question_sended_message': '✉ Ваш запит був відправлений! Очікуйте відповіді від служби підтримки.',
-
-    '1lvl_adm_name': 'Тех.поддержка',
-    '2lvl_adm_name': 'Администратор',
-    '3lvl_adm_name': 'Руководитель'
 }
 bot = aiogram.Bot(token=cfg['token'])
 
 
-con = sqlite3.connect("Introfon/db.sqlite3")
+con = sqlite3.connect("db.sqlite3")
 cur = con.cursor()
 
 storage = MemoryStorage()

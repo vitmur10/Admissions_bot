@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os.path
 from pathlib import Path
-from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +26,11 @@ SECRET_KEY = 'django-insecure-ys^-eit+y37q7#0n5llskxelb7p3c9!lk3ce5$r#u^^2(ac+q)
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'pkbot.knutd.edu.ua']
-CSRF_TRUSTED_ORIGINS = ['127.0.0.1', 'pkbot.knutd.edu.ua']
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'https://pkbot.knutd.edu.ua',
+]
+
 
 # Application definition
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'question_answer',
+    'analytics',
 ]
 
 MIDDLEWARE = [
@@ -104,10 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'uk'
-LANGUAGES = [
-    ('uk', _('Ukrainian')),
-    ('en', _('English')),
-]
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
