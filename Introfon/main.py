@@ -1,13 +1,13 @@
+import os
+
 import aiogram.types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from asgiref.sync import sync_to_async
+from django.core.wsgi import get_wsgi_application
 
 import keybord
 from Const import *
-
-import os
-from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Introfon.settings')
 application = get_wsgi_application()
@@ -15,19 +15,18 @@ from question_answer.models import Question
 from analytics.views import analytics
 
 
-# Initialize bot and dispatcher
 class FSMQuestion(StatesGroup):
-    text = State()
+    text = State()  # State to store the text of the question
 
 
-class Admin_ansver(StatesGroup):
-    text = State()
-    id_user = State()
+class Admin_answer(StatesGroup):
+    text = State()  # State to store the text of the answer
+    id_user = State()  # State to store the user ID
 
 
 class Add_mfaq(StatesGroup):
-    text = State()
-    answer = State()
+    text = State()  # State to store the text of the new question
+    answer = State()  # State to store the text of the answer to the new question
 
 
 faculty_id = None
@@ -37,16 +36,19 @@ faculty_id = None
 
 @dp.message_handler(state=Add_mfaq.text, content_types=['text'])
 async def add_most_frequently_asked_questions(message: aiogram.types.Message, state: FSMContext):
+    """Add to FAQ with a button"""
     async with state.proxy() as data:
         data['answer'] = message.text
 
         a = Question.objects.all()
 
-        await sync_to_async(a.create)(text=data['text'], answer=data['answer'], type='Найчастіші запитання', faculty_id=1)
+        await sync_to_async(a.create)(text=data['text'], answer=data['answer'], type='Найчастіші запитання',
+                                      faculty_id=1)
 
 
 @dp.message_handler(state=FSMQuestion.text, content_types=['photo', 'text'])
 async def newquestion(message: aiogram.types.Message, state: FSMContext):
+    """Processing the question and sending it to the chat for a response"""
     async with state.proxy() as data:
         if message.text == "Назад":
             await message.answer("Окей", reply_markup=keybord.keyboard_menu)
@@ -82,8 +84,9 @@ async def newquestion(message: aiogram.types.Message, state: FSMContext):
                                        reply_markup=keyboard_answer)
 
 
-@dp.message_handler(state=Admin_ansver.text, content_types=['photo', 'text'])
-async def newquestion(message: aiogram.types.Message, state: FSMContext):
+@dp.message_handler(state=Admin_answer.text, content_types=['photo', 'text'])
+async def admin_answer(message: aiogram.types.Message, state: FSMContext):
+    """The answer to the question"""
     try:
         async with state.proxy() as data:
             if message.content_type == 'photo':
@@ -103,12 +106,14 @@ async def newquestion(message: aiogram.types.Message, state: FSMContext):
 @dp.message_handler(commands=['start'])
 @analytics
 async def hello(message: aiogram.types.Message):
+    """command start"""
     await message.answer(cfg['welcome_message'],
                          reply_markup=keybord.menu_faculty)
 
 
 @dp.message_handler(commands=['getchatid'])
 async def client_getgroupid(message: aiogram.types.Message):
+    """receiving a chat id"""
     try:
         await message.answer(f"Chat id is: *{message.chat.id}*\nYour id is: *{message.from_user.id}*")
     except Exception as e:
@@ -120,6 +125,7 @@ async def client_getgroupid(message: aiogram.types.Message):
 @dp.message_handler(content_types=['text'])
 @analytics
 async def answer_to_the_question(message: aiogram.types.Message):
+    """button processing"""
     global faculty_id
     if message.text == cfg['button_new_question']:
         try:
@@ -160,13 +166,14 @@ def extract_arg(arg):
 
 @dp.callback_query_handler(lambda c: True)
 async def admin_ot(callback_query: aiogram.types.CallbackQuery, state: FSMContext):
+    """processing of inline buttons"""
     await bot.answer_callback_query(callback_query.id)
     if callback_query.message.chat.id == cfg['teh_chat_id']:
         if callback_query.data == "c":
             await callback_query.message.answer(f"Напишіть відповідь")
             async with state.proxy() as data:
                 data['id_user'] = callback_query.data
-            await Admin_ansver.text.set()
+            await Admin_answer.text.set()
         elif callback_query.data == "add_most_frequently_asked_questions":
             await callback_query.message.answer(f"Напишіть відповідь")
             message_index = callback_query.message.text.find('Питання:')
