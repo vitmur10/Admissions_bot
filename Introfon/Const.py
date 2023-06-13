@@ -4,7 +4,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 cfg = {
     'token': '6075826339:AAF-yGH627OMzQcZAQuQes0PC3K3dB3PUd4',
-    'teh_chat_id': -919047324,
+    'teh_chat_id': -812815142,
     'db_name': 'Introfon/db.sqlite3',
 
     'button_new_question': '✉ Поставити питання',

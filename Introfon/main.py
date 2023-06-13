@@ -1,9 +1,10 @@
 import aiogram.types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from asgiref.sync import sync_to_async
+
 import keybord
 from Const import *
-
 
 import os
 from django.core.wsgi import get_wsgi_application
@@ -37,12 +38,11 @@ faculty_id = None
 @dp.message_handler(state=Add_mfaq.text, content_types=['text'])
 async def add_most_frequently_asked_questions(message: aiogram.types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['text'] = message.text
-        """cur.execute("INSERT INTO analytics_analytics_user  VALUES (?,?, ?)")"""
+        data['answer'] = message.text
 
         a = Question.objects.all()
 
-        a.create(text=data['text'], ansver=data['answer'], type='Найчастіші запитання', faculty_id=1)
+        await sync_to_async(a.create)(text=data['text'], answer=data['answer'], type='Найчастіші запитання', faculty_id=1)
 
 
 @dp.message_handler(state=FSMQuestion.text, content_types=['photo', 'text'])
@@ -50,6 +50,7 @@ async def newquestion(message: aiogram.types.Message, state: FSMContext):
     async with state.proxy() as data:
         if message.text == "Назад":
             await message.answer("Окей", reply_markup=keybord.keyboard_menu)
+            await state.finish()
         else:
             if message.content_type == 'photo':
                 data['text'] = message.caption
@@ -75,7 +76,7 @@ async def newquestion(message: aiogram.types.Message, state: FSMContext):
                                      caption=f"✉ | Нове запитання\nВід: {who}\nПитання: {data['text']}",
                                      reply_markup=keyboard_answer)
             else:
-                await message.reply(f"{cfg['question_ur_question_sended_message']}")
+                await message.reply(f"{cfg['question_ur_question_sended_message']}", reply_markup=keybord.keyboard_menu)
                 await bot.send_message(cfg['teh_chat_id'],
                                        f"✉ | Нове запитання\nВід: {who}\nПитання: {data['text']}",
                                        reply_markup=keyboard_answer)
@@ -100,6 +101,7 @@ async def newquestion(message: aiogram.types.Message, state: FSMContext):
 
 
 @dp.message_handler(commands=['start'])
+@analytics
 async def hello(message: aiogram.types.Message):
     await message.answer(cfg['welcome_message'],
                          reply_markup=keybord.menu_faculty)
@@ -119,17 +121,16 @@ async def client_getgroupid(message: aiogram.types.Message):
 @analytics
 async def answer_to_the_question(message: aiogram.types.Message):
     global faculty_id
-    try:
-        if message.text == cfg['button_new_question']:
+    if message.text == cfg['button_new_question']:
+        try:
             button_back = aiogram.types.KeyboardButton("Назад")
             keybord_back = aiogram.types.ReplyKeyboardMarkup(resize_keyboard=True).add(button_back)
             await message.answer(f"{cfg['question_type_ur_question_message']}", reply_markup=keybord_back)
             await FSMQuestion.text.set()
-
-    except Exception as e:
-        cid = message.chat.id
-        await message.answer(f"{cfg['error_message']}")
-        await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}")
+        except Exception as e:
+            cid = message.chat.id
+            await message.answer(f"{cfg['error_message']}")
+            await bot.send_message(cfg['teh_chat_id'], f"Помилка виникла у чаті {cid}\nСтатус помилки: {e}")
     if message.text == 'Найчастіші запитання':
         await message.answer('Ось перелік найчастіших запитань...',
                              reply_markup=keybord.create_inline_keyboard(message.text, faculty_id))
@@ -158,25 +159,27 @@ def extract_arg(arg):
 
 
 @dp.callback_query_handler(lambda c: True)
-@analytics
 async def admin_ot(callback_query: aiogram.types.CallbackQuery, state: FSMContext):
     await bot.answer_callback_query(callback_query.id)
     if callback_query.message.chat.id == cfg['teh_chat_id']:
-        await callback_query.message.answer(f"Напишіть відповідь")
-        async with state.proxy() as data:
-            data['id_user'] = callback_query.data
-        await Admin_ansver.text.set()
+        if callback_query.data == "c":
+            await callback_query.message.answer(f"Напишіть відповідь")
+            async with state.proxy() as data:
+                data['id_user'] = callback_query.data
+            await Admin_ansver.text.set()
+        elif callback_query.data == "add_most_frequently_asked_questions":
+            await callback_query.message.answer(f"Напишіть відповідь")
+            message_index = callback_query.message.text.find('Питання:')
+            message = callback_query.message.text[message_index + len("Питання:'"):]
+            async with state.proxy() as data:
+                data['text'] = message
+            await Add_mfaq.text.set()
     else:
         for reply in cur.execute("SELECT answer FROM question_answer_Question WHERE text = ?",
                                  (callback_query.data,)):
             await bot.send_message(callback_query.from_user.id, f"Ось що мені відомо\n"
                                                                 f"{q}\n"
                                                                 f"{reply[0]}")
-    if callback_query.message.chat.id == "add_most_frequently_asked_questions":
-        await callback_query.message.answer(f"Напишіть відповідь")
-        async with state.proxy() as data:
-            data['id_user'] = callback_query.data
-        await Add_mfaq.text.set()
 
 
 if __name__ == '__main__':
