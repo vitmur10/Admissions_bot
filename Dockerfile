@@ -11,7 +11,9 @@ RUN pip install\
     Django \
     python-dotenv\
     aiogram\
-    asyncio
+    asyncio\
+    os\
+    datetime
 
 # Копіюємо код у контейнер
 WORKDIR /usr/src/app
