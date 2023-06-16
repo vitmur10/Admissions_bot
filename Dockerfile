@@ -11,9 +11,7 @@ RUN pip install\
     Django \
     python-dotenv\
     aiogram\
-    asyncio\
-    os\
-    datetime
+    asyncio
 
 # Копіюємо код у контейнер
 WORKDIR /usr/src/app
@@ -26,4 +24,4 @@ RUN python Introfon/manage.py migrate
 EXPOSE 8000
 
 # Вказуємо команду для запуску додатку
-CMD ["bash", "-c","python main.py & python Introfon/manage.py runserver 0.0.0.0:8000"]
+CMD ["bash", "-c","python Introfon/main.py & python Introfon/manage.py runserver 0.0.0.0:8000"]
