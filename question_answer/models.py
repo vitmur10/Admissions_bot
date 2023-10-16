@@ -6,7 +6,9 @@ from django.db import models
 
 class Faculty(models.Model):
     name = models.CharField(max_length=255)
-    social_media_link = models.URLField(blank=True)
+    instagram_link = models.URLField(blank=True)
+    tg_link = models.URLField(blank=True)
+    facebook_link = models.URLField(blank=True)
     website_link = models.URLField(blank=True)
 
     def __str__(self):
@@ -30,7 +32,7 @@ class Question(models.Model):
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.text
+        return f"""Питання: {self.text}      Відповідь: {self.answer}   Факультет: {self.faculty}  Тип: {self.type}"""
 
     class Meta:
         verbose_name = 'Питання'

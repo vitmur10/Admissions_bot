@@ -6,12 +6,12 @@
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define( [ "jquery" ], window, factory );
+		define( [ "Introfon/grappelli/jquery/jquery" ], window, factory );
 	} else if ( typeof module === "object" && module.exports ) {
 
 		// Node/CommonJS
 		// eslint-disable-next-line no-undef
-		module.exports = factory( require( "jquery" ), window );
+		module.exports = factory( require( "Introfon/grappelli/jquery/jquery" ), window );
 	} else {
 
 		// Browser globals

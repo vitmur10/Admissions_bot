@@ -9,19 +9,31 @@ def analytics(func: callable):
     total_messages = 0
     users = set()
     total_users = 0
+    nickname = ''
+    user_id, chat_id = 0, 0
+    phone = 0
 
     async def analytics_wrapper(message):
         """This wrapper function tracks and records analytics data before executing the original function."""
-        nonlocal total_messages, total_users
+        nonlocal total_messages, total_users, nickname, user_id, chat_id, phone
         total_messages += 1
         if message.chat.id not in users and message.text == '/start':
             # If the user is new and sends the '/start' command, record them as a new user.
             users.add(message.chat.id)
             total_users += 1
+            user_id = message.from_user.id
+            chat_id = message.chat.id
+            if message.chat.username is None:
+                nickname = "Ім'я користувача не встановлено"
+            else:
+                nickname = "@" + message.chat.username
             u = Analytics_User.objects.all()
             await sync_to_async(u.create)(
                 quantity_user=total_users,
-                data=datetime.now()
+                data=datetime.now(),
+                nickname=nickname,
+                user_id=user_id,
+                chat_id=chat_id
             )
         elif message.text != '/start':
             # If the message is not the '/start' command, record the action performed.
